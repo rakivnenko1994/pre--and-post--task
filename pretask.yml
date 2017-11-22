@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  pre_tasks:
+    - shell: mkdir /tmp/webfolder{1..5}
+  tasks:
+    - name: Install web server
+      yum: 
+        name: httpd
+        state: installed
+  post_tasks:
+    - shell: echo "webserver installed" >> /tmp/webserver.log
